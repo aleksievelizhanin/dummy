@@ -1,7 +1,7 @@
-package com.example;
+package org.example;
 
-import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
