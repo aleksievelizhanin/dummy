@@ -1,7 +1,7 @@
 {
   "name": "ci-demo-service",
   "version": "1.0.0",
-  "type": "module",
+  "type": "commonjs",
   "main": "server.js",
   "license": "MIT",
   "dependencies": {

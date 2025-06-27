@@ -1,8 +1,7 @@
 // server.js
-const express = require('express');
-const app = express();
+const express = require('express')
+const app = express()
 const PORT = 8080;
-
 // simple “health” endpoint used by your test
 app.get('/action', (_, res) => res.send('service-is-alive'));
 
