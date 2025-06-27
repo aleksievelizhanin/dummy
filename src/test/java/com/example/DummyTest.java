@@ -23,6 +23,8 @@ public class DummyTest {
 
     // Ultra-simple smoke assertion: page has a <body>
     $("body").shouldBe(Condition.exist);
+
+    System.out.println("Test succeeded!");
   }
 }
 
