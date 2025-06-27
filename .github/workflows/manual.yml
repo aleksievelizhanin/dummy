@@ -50,5 +50,5 @@ jobs:
         env:
           SELENIDE_BROWSER: chrome         # picked up by the test
           SELENIDE_HEADLESS: true
-          TARGET_URL: http://myservice:8080/action
+          TARGET_URL: http://localhost:8080/action
         run: mvn -B test
