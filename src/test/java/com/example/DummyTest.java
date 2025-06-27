@@ -15,7 +15,7 @@ public class DummyTest {
     Configuration.headless = Boolean.parseBoolean(System.getenv().getOrDefault("SELENIDE_HEADLESS", "true"));
 
     String targetUrl = System.getenv().getOrDefault(
-        "TARGET_URL",
+        "TARGET_URL"+"2"§,
         "http://myservice:8081/action"
     );
 
