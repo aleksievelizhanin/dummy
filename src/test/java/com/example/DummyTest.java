@@ -27,8 +27,8 @@ public class DummyTest {
      * var set in the GitHub Actions workflow.
      */
     private static final String TARGET_URL = System.getenv().getOrDefault(
-            "TARGET_URL",
-            "http://myservice:8080/action"
+            "TARGET_URL2",
+            "http://myservice2:8080/action"
     );
 
     @Test
