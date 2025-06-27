@@ -16,24 +16,18 @@ import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * Smoke‑tests that the target service is alive and that its /action endpoint
- * renders in a browser. Both an HTTP‑level check (200 OK) and a Selenide UI
- * check are performed.
+ * Purposely failing tests to illustrate pipeline red status.
  */
 public class DummyTest {
 
-    /**
-     * URL of the service under test – can be overridden via the TARGET_URL env
-     * var set in the GitHub Actions workflow.
-     */
     private static final String TARGET_URL = System.getenv().getOrDefault(
-            "TARGET_URL2",
-            "http://myservice2:8080/action"
+            "TARGET_URL",
+            "http://myservice:8080/action"
     );
 
     @Test
-    @DisplayName("Service responds with HTTP 200")
-    void serviceResponds200() throws Exception {
+    @DisplayName("Service deliberately expected to return 500")
+    void serviceResponds500() throws Exception {
         HttpClient client = HttpClient.newBuilder()
                 .connectTimeout(Duration.ofSeconds(5))
                 .build();
@@ -45,20 +39,21 @@ public class DummyTest {
                 .build();
 
         HttpResponse<Void> response = client.send(request, HttpResponse.BodyHandlers.discarding());
-        assertEquals(200, response.statusCode(), "Expected HTTP 200 from service");
+        // Intentionally wrong expectation: should fail when service returns 200
+        assertEquals(500, response.statusCode(), "Deliberate failure: expecting 500 but got " + response.statusCode());
     }
 
     @Test
-    @DisplayName("Page loads successfully in Chrome")
+    @DisplayName("Page should contain a non‑existent element (will fail)")
     void pageLoadsInChrome() {
-        // Pick up browser/headless flags from the workflow environment
         Configuration.browser = System.getenv().getOrDefault("SELENIDE_BROWSER", "chrome");
         Configuration.headless = Boolean.parseBoolean(
                 System.getenv().getOrDefault("SELENIDE_HEADLESS", "true")
         );
 
         open(TARGET_URL);
-        $("body").shouldBe(Condition.visible);
+        // Expect an element that certainly doesn't exist -> fail
+        $("#definitely-non-existent").shouldBe(Condition.visible);
     }
 }
 
