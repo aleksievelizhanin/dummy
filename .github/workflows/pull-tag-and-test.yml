@@ -10,13 +10,12 @@ jobs:
 
     steps:
       ########################################################
-      # 1) Dock­er work: log in, pull, tag, start container  #
+      # 1) one Dock­er work: log in, pull, tag, start container  #
       ########################################################
       - uses: actions/checkout@v4
 
       - name: Pull base image
         run: docker pull alpine:3.20
-
       - name: Retag as my-image:latest
         run: docker tag alpine:3.20 my-image:latest
 
