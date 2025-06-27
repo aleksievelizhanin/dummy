@@ -16,7 +16,7 @@ public class DummyTest {
 
         String targetUrl = System.getenv().getOrDefault(
                 "TARGET_URL",
-                "http://localhost:8080/action"
+                "http://myservice:8080/action"
         );
 
         open(targetUrl);

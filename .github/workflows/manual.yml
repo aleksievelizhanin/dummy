@@ -14,21 +14,25 @@ jobs:
       ########################################################
       - uses: actions/checkout@v4
 
-      - name: Pull base image
-        run: docker pull alpine:3.20
-      - name: Retag as my-image:latest
-        run: docker tag alpine:3.20 my-image:latest
-
-      - name: Run service container (background)
-        # Port published on 8080; container is reachable as http://localhost:8080/
+      # after `actions/checkout@v4`
+      - name: Build Express service image
         run: |
-          docker run -d --name myservice -p 8080:8080 my-image:latest
-          echo "Waiting up to 30 s for server…"
+          docker build -t my-service-image:latest .
+
+      - name: Run service container
+        run: |
+          set -euo pipefail
+          docker run -d --name myservice -p 8080:8080 my-service-image:latest
+      
+          echo "⏳ Waiting for service on http://localhost:8080/action ..."
           for i in {1..30}; do
-            curl -fs http://localhost:8080/ || true
-            if [ $? -eq 0 ]; then break; fi
+            if curl -fs http://localhost:8080/action >/dev/null; then
+              echo "✅ Service is up!"
+              break
+            fi
             sleep 1
           done
+
 
       #####################################
       # 2) Java + Maven + Selenide tests  #
@@ -50,5 +54,5 @@ jobs:
         env:
           SELENIDE_BROWSER: chrome         # picked up by the test
           SELENIDE_HEADLESS: true
-          TARGET_URL: http://localhost:8080/action
+          TARGET_URL: http://myservice:8080/action
         run: mvn -B test
