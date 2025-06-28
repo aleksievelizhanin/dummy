@@ -1,4 +1,4 @@
-package com.example;
+package org.example;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Condition;
