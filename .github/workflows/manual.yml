@@ -39,7 +39,6 @@ jobs:
             sleep 2
             if [ "$(docker inspect -f '{{.State.Running}}' myservice)" = "false" ]; then
               echo "Container exited prematurely:"
-              docker logs myservice
               exit 1
             fi
 
