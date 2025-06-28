@@ -32,15 +32,16 @@ jobs:
             fi
             sleep 1
           done
-          
-          - name: Show container status & logs if it exits
-          
-          run: |
-            sleep 2
-            if [ "$(docker inspect -f '{{.State.Running}}' myservice)" = "false" ]; then
-              echo "Container exited prematurely:"
-              exit 1
-            fi
+
+      - name: Show container status & logs if it exits
+
+        run: |
+          sleep 2
+          if [ "$(docker inspect -f '{{.State.Running}}' myservice)" = "false" ]; then
+            echo "Container exited prematurely:"
+            docker logs myservice
+            exit 1
+          fi
 
 
 
