@@ -25,13 +25,24 @@ jobs:
           docker run -d --name myservice -p 8080:8080 my-service-image:latest
       
           echo "⏳ Waiting for service on http://myservice:8080/action ..."
-          for i in {1..300}; do
+          for i in {1..30}; do
             if curl -fs http://myservice:8080/action >/dev/null; then
               echo "✅ Service is up!"
               break
             fi
             sleep 1
           done
+          
+          - name: Show container status & logs if it exits
+          
+          run: |
+            sleep 2
+            if [ "$(docker inspect -f '{{.State.Running}}' myservice)" = "false" ]; then
+              echo "Container exited prematurely:"
+              docker logs myservice
+              exit 1
+            fi
+
 
 
       #####################################
