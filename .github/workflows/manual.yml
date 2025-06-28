@@ -24,9 +24,9 @@ jobs:
           set -euo pipefail
           docker run -d --name myservice -p 8080:8080 my-service-image:latest
       
-          echo "⏳ Waiting for service on http://localhost:8080/action ..."
+          echo "⏳ Waiting for service on http://myservice:8080/action ..."
           for i in {1..30}; do
-            if curl -fs http://localhost:8080/action >/dev/null; then
+            if curl -fs http://myservice:8080/action >/dev/null; then
               echo "✅ Service is up!"
               break
             fi
