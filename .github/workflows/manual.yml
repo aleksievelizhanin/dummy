@@ -25,7 +25,7 @@ jobs:
           docker run -d --name myservice -p 8080:8080 my-service-image:latest
       
           echo "⏳ Waiting for service on http://myservice:8080/action ..."
-          for i in {1..30}; do
+          for i in {1..300}; do
             if curl -fs http://myservice:8080/action >/dev/null; then
               echo "✅ Service is up!"
               break
