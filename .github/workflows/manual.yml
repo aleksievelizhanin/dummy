@@ -41,6 +41,9 @@ jobs:
             echo "Container exited prematurely:"
             docker logs myservice
             exit 1
+          else
+            echo "Container is running"
+            docker logs myservice
           fi
 
 
